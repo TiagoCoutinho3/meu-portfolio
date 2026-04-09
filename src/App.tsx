@@ -29,7 +29,7 @@ const projects: Project[] = [
     deployUrl: 'https://tc-task-master.vercel.app/',
   },
   {
-    title: 'Conversor de Bases Numericas',
+    title: 'Conversor de Bases Numéricas',
     image: '/thumb-conversor.png',
     description:
       'Ferramenta para conversao entre bases Binaria, Octal, Decimal e Hexadecimal.',
@@ -105,8 +105,7 @@ function App() {
               Tiago Coutinho | Full-stack Developer
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-              Apaixonado por transformar logica complexa em interfaces fluidas e
-              intuitivas com React, TypeScript e Tailwind CSS.
+              Apaixonado por transformar lógica complexa em interfaces fluidas e intuitivas com React, TypeScript e Tailwind, construindo aplicações completas com soluções de backend robustas e escaláveis.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
