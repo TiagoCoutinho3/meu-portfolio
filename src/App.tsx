@@ -133,12 +133,11 @@ function App() {
             Sobre Mim
           </h2>
           <p className="max-w-4xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-            Estudante de Sistemas de Computacao na UFF/CEDERJ, desenvolvedor
-            Full-stack focado no ecossistema JavaScript e entusiasta de Seguranca
-            da Informacao. Especialista em construir interfaces modernas com React
+            Estudante de Sistemas de Computacao na UFF, desenvolvedor
+            Full-stack focado no ecossistema JavaScript. Especialista em construir interfaces modernas com React
             e TypeScript, integrando-as a backends de alta performance em Node.js.
             Busco criar solucoes que unam uma experiencia de usuario impecavel com
-            protecao de dados.
+            proteção de dados.
           </p>
         </section>
 
