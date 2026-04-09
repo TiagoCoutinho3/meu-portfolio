@@ -177,7 +177,7 @@ function App() {
               Projetos
             </h2>
             <p className="text-zinc-400">
-              Vitrine dos principais projetos com foco em UX/UI e performance.
+              Vitrine dos principais projetos.
             </p>
           </div>
 
