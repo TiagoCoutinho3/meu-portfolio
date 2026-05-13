@@ -1,42 +1,87 @@
-import { ArrowUpRight, Link2, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowUpRight, Link2, Mail, ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react'
 
 type Project = {
+  id: string
   title: string
-  image: string
-  description: string
+  subtitle: string
+  images: string[]
+  shortDescription: string
+  fullDescription: string
   stacks: string[]
   process: string
   deployUrl: string
+  isFeatured: boolean
 }
 
 const projects: Project[] = [
   {
-    title: 'Crypto Dashboard',
-    image: '/thumb-crypto.png',
-    description: 'Monitoramento de criptomoedas em tempo real com graficos e variação de tempo.',
-    stacks: ['React', 'TS', 'Recharts', 'API CoinGecko', 'TanStack Query'],
-    process:
-      'Integracao de API externa com gerenciamento de cache e estado assincrono para garantir performance e evitar bloqueios de rate limit.',
-    deployUrl: 'https://crypto-dashboard-sand-ten.vercel.app/',
+    id: 'kicker-value',
+    title: '[Plataforma de Avaliação e Histórico de Futebol]',
+    subtitle: 'Kicker Value',
+    images: [
+      '/mockups/mocckup-kicker-value (1).png',
+      '/mockups/mocckup-kicker-value (2).png',
+      '/mockups/mocckup-kicker-value (3).png',
+    ],
+    shortDescription: '[Descrição Curta - Adicione um resumo rápido do que é o Kicker Value]',
+    fullDescription: '[Descrição Longa - Adicione aqui todos os detalhes, desafios técnicos, objetivos e funcionalidades da aplicação Kicker Value. O que foi construído e por quê?]',
+    stacks: ['[Stack 1]', '[Stack 2]', '[Stack 3]'],
+    process: '[Processo placeholder - Adicione os detalhes do processo de desenvolvimento aqui]',
+    deployUrl: 'https://kicker-value.vercel.app/',
+    isFeatured: true,
   },
   {
-    title: 'Task Master',
-    image: '/thumb-tasks.png',
-    description: 'Gerenciador de tarefas moderno com filtros e estados de edicao.',
-    stacks: ['React', 'TS', 'Tailwind CSS', 'LocalStorage'],
-    process:
-      'Implementacao de um sistema CRUD completo com persistencia de dados local, focando em uma experiencia de usuario (UX) limpa e intuitiva.',
-    deployUrl: 'https://tc-task-master.vercel.app/',
+    id: 'coisa-fofa',
+    title: '[E-commerce de Produtos Artesanais]',
+    subtitle: 'Coisa Fofa Ateliê',
+    images: [
+      '/mockups/mockup-coisa-fofa-atelie-1.png',
+      '/mockups/mockups-coisa-fofa atelie (2).png',
+      '/mockups/mockups-coisa-fofa atelie (3).png',
+    ],
+    shortDescription: '[Descrição Curta - Adicione um resumo rápido do que é o Coisa Fofa Ateliê]',
+    fullDescription: '[Descrição Longa - Detalhe aqui as funcionalidades do e-commerce, como funciona o catálogo, as integrações, carrinho de compras e o diferencial do projeto.]',
+    stacks: ['[Stack 1]', '[Stack 2]', '[Stack 3]'],
+    process: '[Processo placeholder - Adicione os detalhes do processo de desenvolvimento aqui]',
+    deployUrl: 'https://coisa-fofa-atelie.vercel.app/',
+    isFeatured: true,
   },
   {
-    title: 'Conversor de Bases Numéricas',
-    image: '/thumb-conversor.png',
-    description:
-      'Ferramenta para conversao entre bases Binaria, Octal, Decimal e Hexadecimal.',
+    id: 'conversor',
+    title: 'Ferramenta de Conversão Numérica',
+    subtitle: 'Conversor de Bases',
+    images: ['/thumb-conversor.png'],
+    shortDescription: 'Ferramenta para conversao entre bases Binaria, Octal, Decimal e Hexadecimal.',
+    fullDescription: 'Uma aplicação web focada em estudantes e profissionais de computação. Permite converter instantaneamente valores entre as bases mais utilizadas na programação. A interface foi desenhada para ser limpa, responsiva e fornecer resultados em tempo real à medida que o usuário digita.',
     stacks: ['JavaScript (ES6+)', 'CSS3', 'HTML5'],
-    process:
-      'Desenvolvimento de algoritmos de conversao logica e tratamento de inputs em tempo real com foco em responsividade total.',
+    process: 'Desenvolvimento de algoritmos de conversao logica e tratamento de inputs em tempo real com foco em responsividade total.',
     deployUrl: 'https://tiagocoutinho3.github.io/conversor-bases/',
+    isFeatured: true,
+  },
+  {
+    id: 'crypto',
+    title: 'Monitoramento de Criptomoedas',
+    subtitle: 'Crypto Dashboard',
+    images: ['/thumb-crypto.png'],
+    shortDescription: 'Monitoramento de criptomoedas em tempo real com graficos e variação de tempo.',
+    fullDescription: '',
+    stacks: ['React', 'TS', 'Recharts', 'API CoinGecko', 'TanStack Query'],
+    process: 'Integracao de API externa com gerenciamento de cache e estado assincrono para garantir performance e evitar bloqueios de rate limit.',
+    deployUrl: 'https://crypto-dashboard-sand-ten.vercel.app/',
+    isFeatured: false,
+  },
+  {
+    id: 'task',
+    title: 'Gerenciador de Tarefas',
+    subtitle: 'Task Master',
+    images: ['/thumb-tasks.png'],
+    shortDescription: 'Gerenciador de tarefas moderno com filtros e estados de edicao.',
+    fullDescription: '',
+    stacks: ['React', 'TS', 'Tailwind CSS', 'LocalStorage'],
+    process: 'Implementacao de um sistema CRUD completo com persistencia de dados local, focando em uma experiencia de usuario (UX) limpa e intuitiva.',
+    deployUrl: 'https://tc-task-master.vercel.app/',
+    isFeatured: false,
   },
 ]
 
@@ -55,7 +100,188 @@ const skills = [
   },
 ]
 
+function FeaturedProjectCard({ project }: { project: Project }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length)
+  }
+
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/40 transition-all duration-300 hover:border-emerald-400/60 shadow-lg shadow-black/20">
+      
+      {/* Top Section: Imagem + Info Curta */}
+      <div className="flex flex-col lg:flex-row">
+        
+        {/* Slider de Imagens */}
+        <div className="relative w-full lg:w-3/5 h-[300px] sm:h-[400px] lg:h-auto overflow-hidden bg-zinc-950 flex-shrink-0 lg:border-r lg:border-zinc-800/50">
+          <img 
+            src={project.images[currentImageIndex]} 
+            alt={`${project.subtitle} mockup`}
+            className="w-full h-full object-cover object-top transition-all duration-500"
+          />
+          {project.images.length > 1 && (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/40 via-transparent to-zinc-950/40 pointer-events-none" />
+              
+              <button 
+                onClick={prevImage} 
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-zinc-950/70 text-white hover:bg-emerald-500 hover:text-zinc-950 hover:scale-110 backdrop-blur-md transition-all z-10"
+                aria-label="Imagem anterior"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={nextImage} 
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-zinc-950/70 text-white hover:bg-emerald-500 hover:text-zinc-950 hover:scale-110 backdrop-blur-md transition-all z-10"
+                aria-label="Próxima imagem"
+              >
+                <ChevronRight size={24} />
+              </button>
+              
+              {/* Indicadores do slider */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-10 bg-zinc-950/50 px-3 py-2 rounded-full backdrop-blur-sm">
+                {project.images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      idx === currentImageIndex ? 'bg-emerald-400 w-6' : 'bg-zinc-400 hover:bg-zinc-200'
+                    }`}
+                    aria-label={`Ir para imagem ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Conteúdo Curto */}
+        <div className="flex w-full lg:w-2/5 flex-col p-8 sm:p-10 justify-center bg-zinc-900/10">
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-3xl font-bold tracking-tight text-zinc-100 leading-tight">
+                {project.title}
+              </h3>
+              <p className="text-emerald-400 font-semibold tracking-widest text-sm uppercase mt-2">
+                {project.subtitle}
+              </p>
+            </div>
+            
+            <p className="text-base leading-relaxed text-zinc-300">
+              {project.shortDescription}
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-2">
+              {project.stacks.map((stack) => (
+                <span key={stack} className="rounded-full border border-zinc-700 bg-zinc-800/40 px-3.5 py-1.5 text-xs font-medium text-zinc-300">
+                  {stack}
+                </span>
+              ))}
+            </div>
+
+            <div className="pt-6 border-t border-zinc-800/80">
+              <button 
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="flex items-center gap-2 text-sm font-semibold text-zinc-400 hover:text-emerald-400 transition-colors"
+              >
+                {isExpanded ? 'Ocultar detalhes' : 'Ler mais sobre o projeto'}
+                {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Expanded Section: Full Width */}
+      {isExpanded && (
+        <div className="w-full border-t border-zinc-800 bg-zinc-950/50 p-8 sm:p-10 animate-in slide-in-from-top-4 fade-in duration-300">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="space-y-5">
+              <h4 className="text-lg font-semibold text-emerald-400">Sobre o Projeto</h4>
+              <p className="text-base leading-relaxed text-zinc-300 bg-zinc-900/50 p-5 rounded-xl border border-zinc-800/50">
+                {project.fullDescription}
+              </p>
+            </div>
+            
+            <div className="space-y-3 text-base leading-relaxed text-zinc-400 p-5 bg-zinc-900/30 rounded-xl border border-zinc-800/30">
+              <strong className="text-zinc-200 font-medium block mb-2">Processo e Desafios:</strong> 
+              {project.process}
+            </div>
+
+            <div className="pt-4 flex">
+              <a
+                href={project.deployUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-8 py-4 text-sm font-bold text-zinc-950 transition-all duration-300 hover:bg-emerald-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/20"
+              >
+                Acessar Plataforma
+                <ArrowUpRight size={18} />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </article>
+  )
+}
+
+function RegularProjectCard({ project }: { project: Project }) {
+  return (
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 transition-all duration-300 hover:-translate-y-2 hover:border-emerald-400/50 hover:shadow-xl hover:shadow-black/20">
+      <div className="relative overflow-hidden h-48 w-full">
+        <img
+          src={project.images[0]}
+          alt={project.subtitle}
+          className="h-full w-full object-cover object-top transition-all duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-zinc-950/20 transition-all group-hover:bg-transparent" />
+      </div>
+      
+      <div className="flex h-full flex-col gap-4 p-6">
+        <div>
+          <h3 className="text-xl font-bold tracking-tight text-zinc-100">{project.title}</h3>
+          <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mt-1.5">{project.subtitle}</p>
+        </div>
+        
+        <p className="text-sm leading-relaxed text-zinc-300 flex-grow">
+          {project.shortDescription}
+        </p>
+        
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-zinc-800/60 mt-auto">
+          {project.stacks.map((stack) => (
+            <span key={stack} className="rounded-full border border-zinc-700/80 bg-zinc-800/30 px-2.5 py-1 text-[11px] font-medium text-zinc-400">
+              {stack}
+            </span>
+          ))}
+        </div>
+        
+        <a
+          href={project.deployUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 transition-all duration-300 hover:text-emerald-300 group/link"
+        >
+          Ver Deploy
+          <ArrowUpRight size={16} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+        </a>
+      </div>
+    </article>
+  )
+}
+
 function App() {
+  const [showAllProjects, setShowAllProjects] = useState(false)
+
+  const featuredProjects = projects.filter(p => p.isFeatured)
+  const otherProjects = projects.filter(p => !p.isFeatured)
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
       <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur">
@@ -170,59 +396,62 @@ function App() {
           </div>
         </section>
 
-        <section id="projetos" className="space-y-8">
-          <div className="space-y-3">
+        <section id="projetos" className="space-y-16 mt-8">
+          <div className="space-y-4 max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Projetos
+              Projetos em Destaque
             </h2>
-            <p className="text-zinc-400">
+            <p className="text-zinc-400 leading-relaxed text-sm">
               Vitrine dos principais projetos.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => (
-              <article
-                key={project.title}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/60"
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="h-52 w-full object-cover object-top transition-all duration-300 group-hover:scale-[1.02]"
-                />
-                <div className="flex h-full flex-col gap-4 p-5">
-                  <h3 className="text-xl font-semibold tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-zinc-300">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.stacks.map((stack) => (
-                      <span
-                        key={stack}
-                        className="rounded-full border border-zinc-700 px-3 py-1 text-xs text-zinc-300"
-                      >
-                        {stack}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-sm leading-relaxed text-zinc-400">
-                    {project.process}
-                  </p>
-                  <a
-                    href={project.deployUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-emerald-400 transition-all duration-300 hover:text-emerald-300"
-                  >
-                    Ver Deploy
-                    <ArrowUpRight size={17} />
-                  </a>
-                </div>
-              </article>
+          <div className="flex flex-col gap-12">
+            {featuredProjects.map(p => (
+              <FeaturedProjectCard key={p.id} project={p} />
             ))}
+          </div>
+
+          <div className="flex flex-col items-center justify-center pt-8 border-t border-zinc-800 mt-12 gap-10">
+            {!showAllProjects ? (
+              <button 
+                onClick={() => setShowAllProjects(true)}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-6 py-3 text-sm font-medium text-zinc-100 transition-all duration-300 hover:border-emerald-400 hover:text-emerald-400"
+              >
+                Ver todos os projetos
+                <ChevronDown size={18} />
+              </button>
+            ) : (
+              <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-semibold tracking-tight text-zinc-100">
+                    Outros Trabalhos
+                  </h3>
+                  <p className="text-sm text-zinc-400">
+                    Mais trabalhos que desenvolvi ao longo da minha jornada.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {otherProjects.map(p => (
+                    <RegularProjectCard key={p.id} project={p} />
+                  ))}
+                </div>
+                
+                <div className="flex justify-center pt-8">
+                  <button 
+                    onClick={() => {
+                      setShowAllProjects(false);
+                      document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-all duration-300 hover:text-emerald-400"
+                  >
+                    Ocultar projetos extras
+                    <ChevronUp size={18} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </main>
