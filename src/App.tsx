@@ -1,149 +1,217 @@
-import { useState } from 'react'
-import { ArrowUpRight, Link2, Mail, ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react'
+import { useState } from "react";
+import {
+  ArrowUpRight,
+  Link2,
+  Mail,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 type Project = {
-  id: string
-  title: string
-  subtitle: string
-  images: string[]
-  shortDescription: string
-  fullDescription: string
-  stacks: string[]
-  process: string
-  deployUrl: string
-  isFeatured: boolean
-}
+  id: string;
+  title: string;
+  subtitle: string;
+  images: string[];
+  shortDescription: string;
+  fullDescription: string;
+  stacks: string[];
+  process: string;
+  deployUrl: string;
+  isFeatured: boolean;
+};
 
 const projects: Project[] = [
   {
-    id: 'kicker-value',
-    title: '[Plataforma de Avaliação e Histórico de Futebol]',
-    subtitle: 'Kicker Value',
+    id: "kicker-price",
+    title: "Plataforma de Avaliação e Histórico de Futebol",
+    subtitle: "KickerPrice",
     images: [
-      '/mockups/mocckup-kicker-value (1).png',
-      '/mockups/mocckup-kicker-value (2).png',
-      '/mockups/mocckup-kicker-value (3).png',
+      "/mockups/mocckup-kicker-value (1).png",
+      "/mockups/mocckup-kicker-value (2).png",
+      "/mockups/mocckup-kicker-value (3).png",
     ],
-    shortDescription: '[Descrição Curta - Adicione um resumo rápido do que é o Kicker Value]',
-    fullDescription: '[Descrição Longa - Adicione aqui todos os detalhes, desafios técnicos, objetivos e funcionalidades da aplicação Kicker Value. O que foi construído e por quê?]',
-    stacks: ['[Stack 1]', '[Stack 2]', '[Stack 3]'],
-    process: '[Processo placeholder - Adicione os detalhes do processo de desenvolvimento aqui]',
-    deployUrl: 'https://kicker-value.vercel.app/',
+    shortDescription:
+      "Explore o valor histórico de 47 mil jogadores, 796 clubes e 157 mil transferências — e descubra quanto cada um valeria nos preços de hoje.",
+    fullDescription:
+      "KickerPrice nasceu de uma pergunta simples: quanto valeria o Barcelona de 2009 em valores de hoje? A plataforma cruza dados reais de mais de 600 mil registros históricos de valor de mercado com um algoritmo proprietário — o KickerIndex — que considera crescimento do mercado, posição, liga e idade do jogador para ajustar qualquer valor histórico para os preços atuais. O resultado é uma ferramenta única que transforma dado frio em história, permitindo comparar jogadores e elencos de eras completamente diferentes em valores equivalentes. Conta ainda com o PriceMatch — um jogo diário onde o usuário descobre quem valia mais entre jogadores, clubes e transferências históricas.",
+    stacks: [
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Recharts",
+    ],
+    process:
+      "O maior desafio foi a escala dos dados — importar e estruturar 600 mil registros históricos sem comprometer a performance. A solução foi combinar materialized views no PostgreSQL com cache via React Query, reduzindo queries pesadas de rankings para respostas abaixo de 1 segundo. A modelagem do KickerIndex exigiu pesquisa sobre a evolução real do mercado de transferências desde 2004, identificando eventos que quebraram o mercado como os contratos de TV da Premier League em 2012 e a transferência do Neymar em 2017.",
+    deployUrl: "https://kicker-value.vercel.app/",
     isFeatured: true,
   },
   {
-    id: 'coisa-fofa',
-    title: '[E-commerce de Produtos Artesanais]',
-    subtitle: 'Coisa Fofa Ateliê',
+    id: "coisa-fofa",
+    title: "E-commerce Full-Stack de Produtos Artesanais",
+    subtitle: "Coisa Fofa Ateliê",
     images: [
-      '/mockups/mockup-coisa-fofa-atelie-1.png',
-      '/mockups/mockups-coisa-fofa atelie (2).png',
-      '/mockups/mockups-coisa-fofa atelie (3).png',
+      "/mockups/mockup-coisa-fofa-atelie-1.png",
+      "/mockups/mockups-coisa-fofa atelie (2).png",
+      "/mockups/mockups-coisa-fofa atelie (3).png",
     ],
-    shortDescription: '[Descrição Curta - Adicione um resumo rápido do que é o Coisa Fofa Ateliê]',
-    fullDescription: '[Descrição Longa - Detalhe aqui as funcionalidades do e-commerce, como funciona o catálogo, as integrações, carrinho de compras e o diferencial do projeto.]',
-    stacks: ['[Stack 1]', '[Stack 2]', '[Stack 3]'],
-    process: '[Processo placeholder - Adicione os detalhes do processo de desenvolvimento aqui]',
-    deployUrl: 'https://coisa-fofa-atelie.vercel.app/',
+    shortDescription:
+      "Plataforma de e-commerce completa para venda de produtos em crochê, equipada com painel administrativo automatizado para controle de estoque e catálogo em tempo real.",
+    fullDescription:
+      "Uma aplicação web full-stack desenvolvida para digitalizar as vendas do Coisa Fofa Ateliê. O projeto conta com uma vitrine dinâmica pública e um painel de controle (Admin) restrito. A arquitetura foi desenhada separando estritamente as camadas de privilégio: o front-end consome dados publicamente usando chaves anônimas restritas por políticas de segurança, enquanto as operações críticas de mutação de dados (escrita, edição e deleção) ficam isoladas em um ambiente de back-end privado. O upload de mídias também foi descentralizado, enviando arquivos direto do cliente para o storage via tokens controlados, eliminando gargalos de processamento no servidor.",
+    stacks: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Tailwind CSS",
+      "Vercel Serverless Functions",
+      "PostgreSQL",
+      "Supabase Storage",
+    ],
+    process:
+      "O desenvolvimento priorizou performance, resiliência e blindagem de credenciais. Para evitar o vazamento de dados sensíveis no cliente, implementei uma API Serverless na Vercel (Node.js) encarregada de centralizar o uso da Service Role Key (chave mestra) longe do navegador. No banco de dados (Supabase), o fluxo foi estruturado para suportar o Row Level Security (RLS), separando o tráfego anônimo de leitura das requisições administrativas. O processo cobriu desde a sanitização rigorosa de inputs no back-end (como validação de estoque negativo e preços zerados) até o provisionamento de buckets públicos protegidos contra injeção de arquivos maliciosos.",
+    deployUrl: "https://coisa-fofa-atelie.vercel.app/",
     isFeatured: true,
   },
   {
-    id: 'conversor',
-    title: 'Ferramenta de Conversão Numérica',
-    subtitle: 'Conversor de Bases',
-    images: ['/thumb-conversor.png'],
-    shortDescription: 'Ferramenta para conversao entre bases Binaria, Octal, Decimal e Hexadecimal.',
-    fullDescription: 'Uma aplicação web focada em estudantes e profissionais de computação. Permite converter instantaneamente valores entre as bases mais utilizadas na programação. A interface foi desenhada para ser limpa, responsiva e fornecer resultados em tempo real à medida que o usuário digita.',
-    stacks: ['JavaScript (ES6+)', 'CSS3', 'HTML5'],
-    process: 'Desenvolvimento de algoritmos de conversao logica e tratamento de inputs em tempo real com foco em responsividade total.',
-    deployUrl: 'https://tiagocoutinho3.github.io/conversor-bases/',
+    id: "conversor",
+    title: "Ferramenta de Conversão Numérica",
+    subtitle: "Conversor de Bases",
+    images: ["/thumb-conversor.png"],
+    shortDescription:
+      "Ferramenta para conversao entre bases Binaria, Octal, Decimal e Hexadecimal.",
+    fullDescription:
+      "Uma aplicação web focada em estudantes e profissionais de computação. Permite converter instantaneamente valores entre as bases mais utilizadas na programação. A interface foi desenhada para ser limpa, responsiva e fornecer resultados em tempo real à medida que o usuário digita.",
+    stacks: ["JavaScript (ES6+)", "CSS3", "HTML5"],
+    process:
+      "Desenvolvimento de algoritmos de conversao logica e tratamento de inputs em tempo real com foco em responsividade total.",
+    deployUrl: "https://tiagocoutinho3.github.io/conversor-bases/",
     isFeatured: true,
   },
   {
-    id: 'crypto',
-    title: 'Monitoramento de Criptomoedas',
-    subtitle: 'Crypto Dashboard',
-    images: ['/thumb-crypto.png'],
-    shortDescription: 'Monitoramento de criptomoedas em tempo real com graficos e variação de tempo.',
-    fullDescription: '',
-    stacks: ['React', 'TS', 'Recharts', 'API CoinGecko', 'TanStack Query'],
-    process: 'Integracao de API externa com gerenciamento de cache e estado assincrono para garantir performance e evitar bloqueios de rate limit.',
-    deployUrl: 'https://crypto-dashboard-sand-ten.vercel.app/',
+    id: "crypto",
+    title: "Monitoramento de Criptomoedas",
+    subtitle: "Crypto Dashboard",
+    images: ["/thumb-crypto.png"],
+    shortDescription:
+      "Monitoramento de criptomoedas em tempo real com graficos e variação de tempo.",
+    fullDescription: "",
+    stacks: ["React", "TS", "Recharts", "API CoinGecko", "TanStack Query"],
+    process:
+      "Integracao de API externa com gerenciamento de cache e estado assincrono para garantir performance e evitar bloqueios de rate limit.",
+    deployUrl: "https://crypto-dashboard-sand-ten.vercel.app/",
     isFeatured: false,
   },
   {
-    id: 'task',
-    title: 'Gerenciador de Tarefas',
-    subtitle: 'Task Master',
-    images: ['/thumb-tasks.png'],
-    shortDescription: 'Gerenciador de tarefas moderno com filtros e estados de edicao.',
-    fullDescription: '',
-    stacks: ['React', 'TS', 'Tailwind CSS', 'LocalStorage'],
-    process: 'Implementacao de um sistema CRUD completo com persistencia de dados local, focando em uma experiencia de usuario (UX) limpa e intuitiva.',
-    deployUrl: 'https://tc-task-master.vercel.app/',
+    id: "task",
+    title: "Gerenciador de Tarefas",
+    subtitle: "Task Master",
+    images: ["/thumb-tasks.png"],
+    shortDescription:
+      "Gerenciador de tarefas moderno com filtros e estados de edicao.",
+    fullDescription: "",
+    stacks: ["React", "TS", "Tailwind CSS", "LocalStorage"],
+    process:
+      "Implementacao de um sistema CRUD completo com persistencia de dados local, focando em uma experiencia de usuario (UX) limpa e intuitiva.",
+    deployUrl: "https://tc-task-master.vercel.app/",
     isFeatured: false,
   },
-]
+];
 
 const skills = [
   {
-    category: 'Frontend',
-    items: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
+    category: "Frontend",
+    items: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "React Query",
+      "Recharts",
+      "Vite",
+    ],
   },
   {
-    category: 'Backend',
-    items: ['Node.js', 'TypeScript', 'REST APIs', 'Arquitetura de Sistemas'],
+    category: "Banco de Dados",
+    items: [
+      "PostgreSQL",
+      "Supabase",
+      "SQL",
+      "Otimização de Performance",
+      "Modelagem Relacional",
+      "Segurança de Dados (RLS)",
+    ],
   },
   {
-    category: 'Ferramentas',
-    items: ['Git/GitHub', 'Linux (Bash)', 'Docker'],
+    category: "Backend & APIs",
+    items: [
+      "Node.js",
+      "TypeScript",
+      "REST APIs",
+      "Arquitetura Serverless",
+      "Validação de Dados",
+      "Autenticação e Autorização",
+    ],
   },
-]
+  {
+    category: "Ferramentas",
+    items: [
+      "Git",
+      "GitHub",
+      "Linux (Terminal)",
+      "Docker",
+      "Figma",
+    ],
+  },
+];
+      
 
 function FeaturedProjectCard({ project }: { project: Project }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % project.images.length)
-  }
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+  };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length)
-  }
+    setCurrentImageIndex(
+      (prev) => (prev - 1 + project.images.length) % project.images.length,
+    );
+  };
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/40 transition-all duration-300 hover:border-emerald-400/60 shadow-lg shadow-black/20">
-      
       {/* Top Section: Imagem + Info Curta */}
       <div className="flex flex-col lg:flex-row">
-        
         {/* Slider de Imagens */}
         <div className="relative w-full lg:w-3/5 h-[300px] sm:h-[400px] lg:h-auto overflow-hidden bg-zinc-950 flex-shrink-0 lg:border-r lg:border-zinc-800/50">
-          <img 
-            src={project.images[currentImageIndex]} 
+          <img
+            src={project.images[currentImageIndex]}
             alt={`${project.subtitle} mockup`}
             className="w-full h-full object-cover object-top transition-all duration-500"
           />
           {project.images.length > 1 && (
             <>
               <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/40 via-transparent to-zinc-950/40 pointer-events-none" />
-              
-              <button 
-                onClick={prevImage} 
+
+              <button
+                onClick={prevImage}
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-zinc-950/70 text-white hover:bg-emerald-500 hover:text-zinc-950 hover:scale-110 backdrop-blur-md transition-all z-10"
                 aria-label="Imagem anterior"
               >
                 <ChevronLeft size={24} />
               </button>
-              <button 
-                onClick={nextImage} 
+              <button
+                onClick={nextImage}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-zinc-950/70 text-white hover:bg-emerald-500 hover:text-zinc-950 hover:scale-110 backdrop-blur-md transition-all z-10"
                 aria-label="Próxima imagem"
               >
                 <ChevronRight size={24} />
               </button>
-              
+
               {/* Indicadores do slider */}
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-10 bg-zinc-950/50 px-3 py-2 rounded-full backdrop-blur-sm">
                 {project.images.map((_, idx) => (
@@ -151,7 +219,9 @@ function FeaturedProjectCard({ project }: { project: Project }) {
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                      idx === currentImageIndex ? 'bg-emerald-400 w-6' : 'bg-zinc-400 hover:bg-zinc-200'
+                      idx === currentImageIndex
+                        ? "bg-emerald-400 w-6"
+                        : "bg-zinc-400 hover:bg-zinc-200"
                     }`}
                     aria-label={`Ir para imagem ${idx + 1}`}
                   />
@@ -172,26 +242,33 @@ function FeaturedProjectCard({ project }: { project: Project }) {
                 {project.subtitle}
               </p>
             </div>
-            
+
             <p className="text-base leading-relaxed text-zinc-300">
               {project.shortDescription}
             </p>
 
             <div className="flex flex-wrap gap-2 pt-2">
               {project.stacks.map((stack) => (
-                <span key={stack} className="rounded-full border border-zinc-700 bg-zinc-800/40 px-3.5 py-1.5 text-xs font-medium text-zinc-300">
+                <span
+                  key={stack}
+                  className="rounded-full border border-zinc-700 bg-zinc-800/40 px-3.5 py-1.5 text-xs font-medium text-zinc-300"
+                >
                   {stack}
                 </span>
               ))}
             </div>
 
             <div className="pt-6 border-t border-zinc-800/80">
-              <button 
+              <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="flex items-center gap-2 text-sm font-semibold text-zinc-400 hover:text-emerald-400 transition-colors"
               >
-                {isExpanded ? 'Ocultar detalhes' : 'Ler mais sobre o projeto'}
-                {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                {isExpanded ? "Ocultar detalhes" : "Ler mais sobre o projeto"}
+                {isExpanded ? (
+                  <ChevronUp size={18} />
+                ) : (
+                  <ChevronDown size={18} />
+                )}
               </button>
             </div>
           </div>
@@ -203,14 +280,18 @@ function FeaturedProjectCard({ project }: { project: Project }) {
         <div className="w-full border-t border-zinc-800 bg-zinc-950/50 p-8 sm:p-10 animate-in slide-in-from-top-4 fade-in duration-300">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-5">
-              <h4 className="text-lg font-semibold text-emerald-400">Sobre o Projeto</h4>
+              <h4 className="text-lg font-semibold text-emerald-400">
+                Sobre o Projeto
+              </h4>
               <p className="text-base leading-relaxed text-zinc-300 bg-zinc-900/50 p-5 rounded-xl border border-zinc-800/50">
                 {project.fullDescription}
               </p>
             </div>
-            
+
             <div className="space-y-3 text-base leading-relaxed text-zinc-400 p-5 bg-zinc-900/30 rounded-xl border border-zinc-800/30">
-              <strong className="text-zinc-200 font-medium block mb-2">Processo e Desafios:</strong> 
+              <strong className="text-zinc-200 font-medium block mb-2">
+                Processo e Desafios:
+              </strong>
               {project.process}
             </div>
 
@@ -229,7 +310,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
         </div>
       )}
     </article>
-  )
+  );
 }
 
 function RegularProjectCard({ project }: { project: Project }) {
@@ -243,25 +324,32 @@ function RegularProjectCard({ project }: { project: Project }) {
         />
         <div className="absolute inset-0 bg-zinc-950/20 transition-all group-hover:bg-transparent" />
       </div>
-      
+
       <div className="flex h-full flex-col gap-4 p-6">
         <div>
-          <h3 className="text-xl font-bold tracking-tight text-zinc-100">{project.title}</h3>
-          <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mt-1.5">{project.subtitle}</p>
+          <h3 className="text-xl font-bold tracking-tight text-zinc-100">
+            {project.title}
+          </h3>
+          <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mt-1.5">
+            {project.subtitle}
+          </p>
         </div>
-        
+
         <p className="text-sm leading-relaxed text-zinc-300 flex-grow">
           {project.shortDescription}
         </p>
-        
+
         <div className="flex flex-wrap gap-2 pt-4 border-t border-zinc-800/60 mt-auto">
           {project.stacks.map((stack) => (
-            <span key={stack} className="rounded-full border border-zinc-700/80 bg-zinc-800/30 px-2.5 py-1 text-[11px] font-medium text-zinc-400">
+            <span
+              key={stack}
+              className="rounded-full border border-zinc-700/80 bg-zinc-800/30 px-2.5 py-1 text-[11px] font-medium text-zinc-400"
+            >
               {stack}
             </span>
           ))}
         </div>
-        
+
         <a
           href={project.deployUrl}
           target="_blank"
@@ -269,18 +357,21 @@ function RegularProjectCard({ project }: { project: Project }) {
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 transition-all duration-300 hover:text-emerald-300 group/link"
         >
           Ver Deploy
-          <ArrowUpRight size={16} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+          <ArrowUpRight
+            size={16}
+            className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+          />
         </a>
       </div>
     </article>
-  )
+  );
 }
 
 function App() {
-  const [showAllProjects, setShowAllProjects] = useState(false)
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
-  const featuredProjects = projects.filter(p => p.isFeatured)
-  const otherProjects = projects.filter(p => !p.isFeatured)
+  const featuredProjects = projects.filter((p) => p.isFeatured);
+  const otherProjects = projects.filter((p) => !p.isFeatured);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
@@ -331,7 +422,10 @@ function App() {
               Tiago Coutinho | Full-stack Developer
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-              Apaixonado por transformar lógica complexa em interfaces fluidas e intuitivas com React, TypeScript e Tailwind, construindo aplicações completas com soluções de backend robustas e escaláveis.
+              Apaixonado por transformar lógica complexa em interfaces fluidas e
+              intuitivas com React, TypeScript e Tailwind, construindo
+              aplicações completas com soluções de backend robustas e
+              escaláveis.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
@@ -354,19 +448,7 @@ function App() {
           </div>
         </section>
 
-        <section id="sobre" className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Sobre Mim
-          </h2>
-          <p className="max-w-4xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-            Estudante de Sistemas de Computacao na UFF, desenvolvedor
-            Full-stack focado no ecossistema JavaScript. Especialista em construir interfaces modernas com React
-            e TypeScript, integrando-as a backends de alta performance em Node.js.
-            Busco criar solucoes que unam uma experiencia de usuario impecavel com
-            proteção de dados.
-          </p>
-        </section>
-
+    
         <section id="skills" className="space-y-6">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Skills
@@ -406,14 +488,14 @@ function App() {
           </div>
 
           <div className="flex flex-col gap-12">
-            {featuredProjects.map(p => (
+            {featuredProjects.map((p) => (
               <FeaturedProjectCard key={p.id} project={p} />
             ))}
           </div>
 
           <div className="flex flex-col items-center justify-center pt-8 border-t border-zinc-800 mt-12 gap-10">
             {!showAllProjects ? (
-              <button 
+              <button
                 onClick={() => setShowAllProjects(true)}
                 className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-6 py-3 text-sm font-medium text-zinc-100 transition-all duration-300 hover:border-emerald-400 hover:text-emerald-400"
               >
@@ -430,18 +512,20 @@ function App() {
                     Mais trabalhos que desenvolvi ao longo da minha jornada.
                   </p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {otherProjects.map(p => (
+                  {otherProjects.map((p) => (
                     <RegularProjectCard key={p.id} project={p} />
                   ))}
                 </div>
-                
+
                 <div className="flex justify-center pt-8">
-                  <button 
+                  <button
                     onClick={() => {
                       setShowAllProjects(false);
-                      document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' });
+                      document
+                        .getElementById("projetos")
+                        ?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-all duration-300 hover:text-emerald-400"
                   >
@@ -494,7 +578,7 @@ function App() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
