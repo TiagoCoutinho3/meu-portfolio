@@ -35,7 +35,7 @@ const projects: Project[] = [
     shortDescription:
       "Explore o valor histórico de 47 mil jogadores, 796 clubes e 157 mil transferências — e descubra quanto cada um valeria nos preços de hoje.",
     fullDescription:
-      "KickerPrice nasceu de uma pergunta simples: quanto valeria o Barcelona de 2009 em valores de hoje? A plataforma cruza dados reais de mais de 600 mil registros históricos de valor de mercado com um algoritmo proprietário — o KickerIndex — que considera crescimento do mercado, posição, liga e idade do jogador para ajustar qualquer valor histórico para os preços atuais. O resultado é uma ferramenta única que transforma dado frio em história, permitindo comparar jogadores e elencos de eras completamente diferentes em valores equivalentes. Conta ainda com o PriceMatch — um jogo diário onde o usuário descobre quem valia mais entre jogadores, clubes e transferências históricas.",
+      "KickerPrice é uma plataforma que cruza dados reais de mais de 600 mil registros históricos de valor de mercado com um algoritmo que considera crescimento do mercado, posição, liga e idade do jogador para ajustar qualquer valor histórico para os preços atuais. O resultado é uma ferramenta única que transforma dado frio em história, permitindo comparar jogadores e elencos de eras completamente diferentes em valores equivalentes. Conta ainda com o PriceMatch — um jogo onde o usuário descobre quem valia mais entre jogadores, clubes e transferências históricas.",
     stacks: [
       "React",
       "TypeScript",
@@ -67,7 +67,7 @@ const projects: Project[] = [
       "TypeScript",
       "Node.js",
       "Tailwind CSS",
-      "Vercel Serverless Functions",
+      "Serverless Functions",
       "PostgreSQL",
       "Supabase Storage",
     ],
@@ -128,20 +128,18 @@ const skills = [
       "React",
       "TypeScript",
       "Tailwind CSS",
-      "React Query",
-      "Recharts",
-      "Vite",
-    ],
+      "Consumo de APIs",
+      "Interfaces Responsivas", 
+    ]
   },
   {
-    category: "Banco de Dados",
+  category: "Banco de Dados",
     items: [
-      "PostgreSQL",
-      "Supabase",
-      "SQL",
+      "SQL",    
       "Otimização de Performance",
+      "PostgreSQL",
       "Modelagem Relacional",
-      "Segurança de Dados (RLS)",
+      "Segurança de Dados"
     ],
   },
   {
@@ -150,23 +148,12 @@ const skills = [
       "Node.js",
       "TypeScript",
       "REST APIs",
-      "Arquitetura Serverless",
+      "Arquitetura Cloud",
       "Validação de Dados",
-      "Autenticação e Autorização",
-    ],
-  },
-  {
-    category: "Ferramentas",
-    items: [
-      "Git",
-      "GitHub",
-      "Linux (Terminal)",
-      "Docker",
-      "Figma",
+      "Autenticação",
     ],
   },
 ];
-      
 
 function FeaturedProjectCard({ project }: { project: Project }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -375,6 +362,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
+      {/* Menu Fixo */}
       <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur">
         <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
           <a
@@ -386,10 +374,10 @@ function App() {
           <ul className="flex items-center gap-5 text-sm text-zinc-300">
             <li>
               <a
-                href="#sobre"
+                href="#skills"
                 className="transition-all duration-300 hover:text-emerald-400"
               >
-                Sobre
+                Skills
               </a>
             </li>
             <li>
@@ -413,7 +401,9 @@ function App() {
       </header>
 
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-20 px-6 pb-16 pt-12 sm:gap-24 sm:pt-16">
-        <section id="home" className="space-y-8">
+        
+        {/* Adicionado scroll-mt-24 para compensar a barra do menu */}
+        <section id="home" className="space-y-8 scroll-mt-24">
           <div className="max-w-3xl space-y-5">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-emerald-400">
               Portfolio
@@ -422,10 +412,9 @@ function App() {
               Tiago Coutinho | Full-stack Developer
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-              Apaixonado por transformar lógica complexa em interfaces fluidas e
-              intuitivas com React, TypeScript e Tailwind, construindo
-              aplicações completas com soluções de backend robustas e
-              escaláveis.
+              Acadêmico de Sistemas de Computação na UFF, traduzindo lógica
+              complexa e arquitetura de dados em aplicações completas, seguras
+              e com interfaces fluidas de ponta a ponta.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
@@ -448,8 +437,8 @@ function App() {
           </div>
         </section>
 
-    
-        <section id="skills" className="space-y-6">
+        {/* Adicionado scroll-mt-24 aqui */}
+        <section id="skills" className="space-y-6 scroll-mt-24">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Skills
           </h2>
@@ -477,7 +466,8 @@ function App() {
           </div>
         </section>
 
-        <section id="projetos" className="space-y-16 mt-8">
+        {/* Adicionado scroll-mt-24 aqui */}
+        <section id="projetos" className="space-y-16 mt-8 scroll-mt-24">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Projetos em Destaque
@@ -525,6 +515,7 @@ function App() {
                       setShowAllProjects(false);
                       document
                         .getElementById("projetos")
+                        // Ajustado para o ID correto em minúsculo
                         ?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-all duration-300 hover:text-emerald-400"
@@ -539,7 +530,8 @@ function App() {
         </section>
       </main>
 
-      <footer id="contato" className="border-t border-zinc-800">
+      {/* Adicionado scroll-mt-24 aqui */}
+      <footer id="contato" className="border-t border-zinc-800 scroll-mt-24">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-6 py-12">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Vamos conversar?
