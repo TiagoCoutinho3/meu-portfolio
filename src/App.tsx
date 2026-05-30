@@ -33,7 +33,7 @@ const projects: Project[] = [
       "/mockups/mocckup-kicker-value (3).png",
     ],
     shortDescription:
-      "Explore o valor histórico de 47 mil jogadores, 796 clubes e 157 mil transferências — e descubra quanto cada um valeria nos preços de hoje.",
+      "Plataforma que transforma dados históricos do futebol em narrativa, explore quanto qualquer jogador ou elenco valeria em qualquer ano.",
     fullDescription:
       "KickerPrice é uma plataforma que cruza dados reais de mais de 600 mil registros históricos de valor de mercado com um algoritmo que considera crescimento do mercado, posição, liga e idade do jogador para ajustar qualquer valor histórico para os preços atuais. O resultado é uma ferramenta única que transforma dado frio em história, permitindo comparar jogadores e elencos de eras completamente diferentes em valores equivalentes. Conta ainda com o PriceMatch — um jogo onde o usuário descobre quem valia mais entre jogadores, clubes e transferências históricas.",
     stacks: [
