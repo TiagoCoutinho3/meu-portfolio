@@ -89,34 +89,6 @@ const projects: Project[] = [
     process:
       "Desenvolvimento de algoritmos de conversao logica e tratamento de inputs em tempo real com foco em responsividade total.",
     deployUrl: "https://tiagocoutinho3.github.io/conversor-bases/",
-    isFeatured: true,
-  },
-  {
-    id: "crypto",
-    title: "Monitoramento de Criptomoedas",
-    subtitle: "Crypto Dashboard",
-    images: ["/thumb-crypto.png"],
-    shortDescription:
-      "Monitoramento de criptomoedas em tempo real com graficos e variação de tempo.",
-    fullDescription: "",
-    stacks: ["React", "TS", "Recharts", "API CoinGecko", "TanStack Query"],
-    process:
-      "Integracao de API externa com gerenciamento de cache e estado assincrono para garantir performance e evitar bloqueios de rate limit.",
-    deployUrl: "https://crypto-dashboard-sand-ten.vercel.app/",
-    isFeatured: false,
-  },
-  {
-    id: "task",
-    title: "Gerenciador de Tarefas",
-    subtitle: "Task Master",
-    images: ["/thumb-tasks.png"],
-    shortDescription:
-      "Gerenciador de tarefas moderno com filtros e estados de edicao.",
-    fullDescription: "",
-    stacks: ["React", "TS", "Tailwind CSS", "LocalStorage"],
-    process:
-      "Implementacao de um sistema CRUD completo com persistencia de dados local, focando em uma experiencia de usuario (UX) limpa e intuitiva.",
-    deployUrl: "https://tc-task-master.vercel.app/",
     isFeatured: false,
   },
 ];
